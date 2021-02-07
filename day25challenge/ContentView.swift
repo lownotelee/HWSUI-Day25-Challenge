@@ -5,6 +5,10 @@
 //  Created by Lee on 7/2/21.
 //
 
+/// TODO: Move all logic stuff into a ViewModel file
+/// TODO: Set up a Tie objective for the player
+/// TODO: Create a better way of setting the icons, names and colors. Keeping them in arrays is icky
+
 import SwiftUI
 
 struct ContentView: View {
@@ -19,6 +23,7 @@ struct ContentView: View {
     @State private var moveCounter      = 0
     @State private var currentScore     = 0
     
+    /// sets bool to true to make sure the popup appears on launch
     @State private var isShowingGameSetupAlert = true
     @State private var titleText    = ""
     @State private var messageText  = ""
@@ -58,6 +63,7 @@ struct ContentView: View {
             })
         }
 
+        /// sets up the popup at the start of the game
         .onAppear() {
             titleText = "New Game"
             messageText = "I've chosen \(possibleMoves[appCurrentChoice]), and you should \(playerShouldWin ? "win":"lose")"
@@ -67,7 +73,6 @@ struct ContentView: View {
     
     func iconTapped(_ number: Int) {
         moveCounter += 1
-        dismissText = "Continue"
         
         var playerShouldChoose = playerShouldWin ? appCurrentChoice + 1 : appCurrentChoice - 1
         
@@ -91,6 +96,7 @@ struct ContentView: View {
         resetGame()
         
         messageText += "\n\nFor the next game, I've chosen \(possibleMoves[appCurrentChoice]), and you should \(playerShouldWin ? "win":"lose")"
+        dismissText = "Continue"
         
         isShowingGameSetupAlert = true
     }
